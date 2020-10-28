@@ -85,3 +85,8 @@ FROM customers
 LEFT JOIN invoices
   ON (invoices.customer_id = customers.id)
 WHERE invoices.id IS NULL;
+
+
+-- COMMENT: I think I understand joins a lot better now.
+-- I could see the usefulness of LEFT JOIN.
+-- Thanks for the resources, I think stackoverflow was especially helpful.
