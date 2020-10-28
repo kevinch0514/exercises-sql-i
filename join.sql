@@ -63,20 +63,71 @@ ORDER BY track_count DESC
 LIMIT 5;
 
 -- The top 5 genres by total track length (in milliseconds)
+SELECT genres.id, genres.name, SUM(milliseconds) AS total_track_length
+FROM genres
+JOIN tracks
+  ON (tracks.genre_id = genres.id)
+GROUP BY genres.id
+ORDER BY total_track_length DESC
+LIMIT 5;
 
 -- The top 5 genres by average track length (in milliseconds)
+SELECT genres.id, genres.name, AVG(milliseconds) AS average_track_length
+FROM genres
+JOIN tracks
+  ON (tracks.genre_id = genres.id)
+GROUP BY genres.id
+ORDER BY average_track_length DESC
+LIMIT 5;
 
 -- The top 5 albums by total track length
 -- Hint: you'll need to JOIN the albums table and the tracks table
 -- Hint: the tracks table has an album_id field
+SELECT albums.id, albums.title, SUM(milliseconds) AS total_track_length
+FROM albums
+JOIN tracks
+  ON (tracks.album_id = albums.id)
+GROUP BY albums.id
+ORDER BY total_track_length DESC
+LIMIT 5;
 
 -- The top 5 albums by average track length
+SELECT albums.id, albums.title, AVG(milliseconds) AS average_track_length
+FROM albums
+JOIN tracks
+  ON (tracks.album_id = albums.id)
+GROUP BY albums.id
+ORDER BY average_track_length DESC
+LIMIT 5;
 
 -- The top 5 albums by total album price
 -- Hint: the "tracks" table has a unit_price field, so the "price" of an album
 --       is the sum of its tracks' unit_price fields.
+SELECT albums.id, albums.title, SUM(unit_price) AS total_album_price
+FROM albums
+JOIN tracks
+  ON (tracks.album_id = albums.id)
+GROUP BY albums.id
+ORDER BY total_album_price DESC
+LIMIT 5;
 
 -- The 10 albums with the longest play-time
+SELECT albums.id, albums.title, SUM(milliseconds) AS longest_play_time
+FROM albums
+JOIN tracks
+  ON (tracks.album_id = albums.id)
+GROUP BY albums.id
+ORDER BY longest_play_time DESC
+LIMIT 10;
 
 -- The 10 highest-selling tracks of all time
 -- Hint: you'll need to join the tracks table and the invoice_lines table
+SELECT tracks.id, tracks.name, SUM(unit_price) AS highest_selling_tracks
+FROM tracks
+JOIN invoices
+  ON (invoices.id = tracks.id)
+GROUP BY tracks.id
+ORDER BY highest_selling_tracks DESC
+LIMIT 10;
+
+--HELP!: I think I understand join.sql a little better only because I'm following the patterns. However, it is still a little confusing to me.
