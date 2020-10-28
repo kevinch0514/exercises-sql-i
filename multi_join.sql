@@ -39,6 +39,14 @@
 --
 
 -- What are the five highest grossing hip hop tracks?
+SELECT tracks.id, tracks.name tracks.genre_id SUM(unit_price) AS highest_grossing_tracks
+FROM tracks
+JOIN genres
+  ON (tracks.genre_id = genres.id)
+WHERE genres.name = 'Hip Hop/Rap'
+GROUP BY tracks.id
+ORDER BY highest_grossing_tracks DESC
+LIMIT 5;
 
 -- What are the 3 least frequently-purchased tv shows?
 
